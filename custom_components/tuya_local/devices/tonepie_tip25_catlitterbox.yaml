@@ -1,0 +1,255 @@
+name: Ti+25 Smart Litter Box
+products:
+  - id: d8kra6getv3rzgk0
+    manufacturer: Tonepie
+    model: Ti+25
+entities:
+  - entity: sensor
+    name: Cat weight
+    icon: "mdi:cat"
+    class: weight
+    dps:
+      - id: 6
+        type: integer
+        name: sensor
+        unit: kg
+        class: measurement
+        mapping:
+          - scale: 10
+
+  - entity: sensor
+    name: Times per day
+    icon: "mdi:emoticon-poop"
+    dps:
+      - id: 7
+        type: integer
+        name: sensor
+        unit: times
+        range:
+          min: 0
+          max: 60
+
+  - entity: sensor
+    name: Last Visit Duration
+    icon: "mdi:emoticon-poop"
+    class: duration
+    dps:
+      - id: 8
+        type: integer
+        name: sensor
+        unit: s
+        class: measurement
+        optional: true
+        range:
+          min: 0
+          max: 1800
+
+  - entity: binary_sensor
+    class: problem
+    category: diagnostic
+    name: Fault
+    dps:
+      - id: 22
+        type: bitfield
+        name: sensor
+        mapping:
+          - dps_val: 0
+            value: false
+          - value: true
+        labels:
+          - "E01"
+          - "E02"
+          - "E03"
+          - "E04"
+          - "E05"
+
+  - entity: sensor
+    name: Status
+    icon: "mdi:information-outline"
+    class: enum
+    dps:
+      - id: 24
+        type: string
+        name: sensor
+        mapping:
+          - dps_val: "standly"
+            value: "Standby"
+          - dps_val: "clean"
+            value: "Cleaning"
+          - dps_val: "empty"
+            value: "Emptying"
+          - dps_val: "clock"
+            value: "Child Lock"
+          - dps_val: "sleep"
+            value: "Sleep"
+          - dps_val: "level"
+            value: "Leveling"
+
+  - entity: switch
+    name: Clean
+    icon: "mdi:emoticon-poop"
+    dps:
+      - id: 101
+        type: boolean
+        name: switch
+
+  - entity: switch
+    name: Empty Litter
+    icon: "mdi:delete-empty"
+    dps:
+      - id: 102
+        type: boolean
+        name: switch
+
+  - entity: binary_sensor
+    class: occupancy
+    icon: "mdi:cat"
+    name: Cat Present
+    dps:
+      - id: 104
+        type: boolean
+        name: sensor
+        optional: true
+
+  - entity: switch
+    name: Auto Clean
+    icon: "mdi:robot"
+    category: config
+    dps:
+      - id: 105
+        type: boolean
+        name: switch
+
+  - entity: lock
+    translation_key: child_lock
+    category: config
+    dps:
+      - id: 114
+        type: boolean
+        name: lock
+
+  - entity: select
+    name: Weight Unit
+    icon: "mdi:scale-balance"
+    category: config
+    dps:
+      - id: 116
+        type: string
+        name: option
+        mapping:
+            #These values are reversed in the app, so i'm reversing them here
+          - dps_val: "pound"
+            value: "kg"
+          - dps_val: "kilogram"
+            value: "lb"
+
+  - entity: number
+    name: Cleaning Wait Time
+    category: config
+    class: duration
+    icon: "mdi:timer"
+    dps:
+      - id: 117
+        type: integer
+        name: value
+        unit: min
+        range:
+          min: 0
+          max: 60
+
+  - entity: number
+    name: Cleaning Interval Time
+    category: config
+    class: duration
+    icon: "mdi:update"
+    dps:
+      - id: 118
+        type: integer
+        name: value
+        unit: min
+        range:
+          min: 0
+          max: 120
+
+  - entity: switch
+    name: Full Bin Status
+    category: config
+    icon: "mdi:message-alert"
+    dps:
+      - id: 119
+        type: boolean
+        name: switch
+        optional: true
+
+  - entity: switch
+    name: Do not disturb
+    icon: "mdi:power-sleep"
+    category: config
+    dps:
+      - id: 122
+        type: boolean
+        name: switch
+        optional: true
+
+  - entity: number
+    name: Full Bin Calibration
+    category: config
+    icon: "mdi:counter"
+    dps:
+      - id: 123
+        type: integer
+        name: value
+        range:
+          min: 15
+          max: 35
+
+  - entity: sensor
+    name: Clean Times
+    icon: "mdi:trash-can"
+    dps:
+      - id: 124
+        type: integer
+        name: sensor
+        unit: times
+        range:
+          min: 0
+          max: 30
+
+  - entity: switch
+    name: Deep Cleaning
+    category: config
+    icon: "mdi:broom"
+    dps:
+      - id: 125
+        type: boolean
+        name: switch
+
+  - entity: switch
+    name: Level Litter
+    icon: "mdi:grain"
+    dps:
+      - id: 126
+        type: boolean
+        name: switch
+
+  - entity: switch
+    name: Change Bag
+    icon: "mdi:swap-horizontal"
+    dps:
+      - id: 127
+        type: boolean
+        name: switch
+
+  - entity: select
+    name: Litter Type
+    icon: "mdi:grain"
+    category: config
+    dps:
+      - id: 131
+        type: string
+        name: option
+        mapping:
+          - dps_val: "mineral_cat_litter"
+            value: "Mineral"
+          - dps_val: "mix_cat_litter"
+            value: "Mixed"
